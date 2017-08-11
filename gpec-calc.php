@@ -35,7 +35,8 @@ if ( !class_exists( 'WP_gpec' ) ) {
             add_shortcode('gpec_calc',array($this,'gpec_calc_views'));
         }
     }
-
+    
+    new WP_gpec();
 }
 
 ?>
