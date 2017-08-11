@@ -17,15 +17,15 @@ if ( !class_exists( 'WP_gpec' ) ) {
         private $gpec_model;
 
         public function __construct() {
-            require_once(dirname(__DIR__).'/controller/gpec_controller.php');
-            require_once(dirname(__DIR__).'/model/gpec_model.php');
+            include_once(dirname(__DIR__).'/gpec-calc/controller/gpec_controller.php');
+            include_once(dirname(__DIR__).'/gpec-calc/model/gpec_model.php');
             
             $this->_hooks_load();
         }
 
         public function gpec_calc_views() {
             ob_start();
-            require_once(dirname(__DIR__).'/templates/form.html');
+            require_once(dirname(__DIR__).'/gpec-calc/templates/form.html');
             $view=ob_get_clean();
             
             return $view;
