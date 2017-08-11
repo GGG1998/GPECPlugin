@@ -12,19 +12,28 @@
         <div role="tabpanel" id="form_start">
             <div class="form-group">
                 <label for="city">Wybierz miasto</label>
-                <select class="form-control" id="city">
-                </select>
+                <select class="form-control" id="city"><?php
+                    foreach($cities as $city)
+                        printf('<option value="%s">%s</option>',$city->{'city'},$city->{'city'});
+                ?></select>
             </div>
             <div class="form-group">
                 <label for="street">Wpisz nazwę ulica</label>
                 <input type="text" class="form-control" id="street" list="street_list" placeholder="Ulica">
-                <datalist id="street_list">
-                </datalist>
+                <datalist id="street_list"><?php
+                    foreach($streets as $street)
+                        printf('<option value="%s" data-city="%s">%s</option>',$street->{'street'},$street->{'city'},$street->{'street'});
+                ?></datalist>
             </div>
             <div class="form-group">
-                <label for="number">Wpisz numer domu</label>
-                <input type="text" class="form-control" id="number" placeholder="Numer domu">
+                    <label for="number">Wpisz numer domu</label>
+                    <input type="text" class="form-control" id="number" placeholder="Numer domu">
             </div>
+            <div class="form-group">
+                <label for="number_local">Wpisz numer lokalu</label>
+                <input type="text" class="form-control" id="number_local" placeholder="Numer lokalu">
+            </div>
+            <button type="button" class="btn btn-primary">Szukaj</button>
         </div>
     </div>
 </form>
