@@ -48,6 +48,27 @@ if ( !class_exists( 'gpec_client_model' ) ) {
             $query='SELECT DISTINCT street FROM gpec_client WHERE city="'.$city_name.'"';
             return $this->db->get_results($query, OBJECT);
         }
+
+        public function setCity($val) { $this->city=$val; }
+        public function setStreet($val) { $this->street=$val; }
+        public function setNumberFlat($val) { $this->number_flat=$val; }
+        public function setNumberHome($val) { $this->number_home=$val; }
+        public function setGroupClient($val) { $this->group_client=$val; }
+        public function setCompany($val) { $this->company=$val; }
+        
+        public function save() {
+            $this->db->insert(
+                'gpec_client',
+                array(
+                    'city'=>$this->city,
+                    "street"=>$this->street,
+                    "number_flat"=>$this->number_flat,
+                    "number_home"=>$this->number_home,
+                    "group_client"=>$this->group_client,
+                    "company"=>$this->company
+                )
+            );
+        }
     }
 }
 ?>
