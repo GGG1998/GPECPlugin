@@ -2,8 +2,16 @@
 <p style="margin-left: 50px;">
     <h2 style="color:red;">FAQ!</h2>
     <ol class="faq">
-        <ul>Obsługiwane formaty
+        <ul>Obsługiwane formaty i dodatkowe infrmacje
             <li>Obsługiwane formaty: <strong>*.csv</strong></li>
+            <li>Pola muszą mieć zachowaną kolejność(<i>Patrz na wymagane pola</i>)</li>
+            <li>Pola oddzielamy średnikami</li>
+            <li>Przykład(<i>Lista klientów</i>):
+                <code>
+                    city;street;number_flat;number_home;group_client;company;
+                    Gdańsk;Wilanowska;5b;10;85D;GPEC;
+                </code>
+            </li>
         </ul>
         <ul>Wymagane pola <i>"Listy klientów"</i>
             <li>Miasto: <i>"city"</i></li>
