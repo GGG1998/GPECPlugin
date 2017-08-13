@@ -1,7 +1,7 @@
 <form method="POST" action="">
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="start">
-            <a data-toggle="tab" href="#form_start" class="btn btn-success">
+        <div role="tabpanel" class="tab-pane active">
+            <a data-toggle="tab" href="#form_start" id="start" class="btn btn-success">
                 Tak
             </a>
             <a href="http://gpec.oxmedia.pl/jak-sie-przylaczyc/" class="btn btn-danger">
@@ -9,17 +9,17 @@
             </a>
         </div>
         <!-- <div role="tabpanel" class="tab-pane" id="form_start"> -->
-        <div role="tabpanel" id="form_start">
+        <div role="tabpanel" id="form_start" style="display:none;">
             <div class="form-group">
                 <label for="city">Wybierz miasto</label>
-                <select class="form-control" id="city"><?php
+                <select class="form-control" id="city" name="city"><?php
                     foreach($cities as $city)
                         printf('<option value="%s">%s</option>',$city->{'city'},$city->{'city'});
                 ?></select>
             </div>
             <div class="form-group">
                 <label for="street">Wpisz nazwę ulica</label>
-                <input type="text" class="form-control" id="street" list="street_list" placeholder="Ulica">
+                <input type="text" class="form-control" id="street" name="street" list="street_list" placeholder="Ulica">
                 <datalist id="street_list"><?php
                     foreach($streets as $street)
                         printf('<option value="%s" data-city="%s">%s</option>',$street->{'street'},$street->{'city'},$street->{'street'});
@@ -27,13 +27,23 @@
             </div>
             <div class="form-group">
                     <label for="number">Wpisz numer domu</label>
-                    <input type="text" class="form-control" id="number" placeholder="Numer domu">
+                    <input type="text" class="form-control" id="number" name="number" placeholder="Numer domu">
             </div>
             <div class="form-group">
                 <label for="number_local">Wpisz numer lokalu</label>
-                <input type="text" class="form-control" id="number_local" placeholder="Numer lokalu">
+                <input type="text" class="form-control" id="number_local" name="number_local" placeholder="Numer lokalu">
             </div>
-            <button type="button" class="btn btn-primary">Szukaj</button>
+            <button type="submit" class="btn btn-primary">Szukaj</button>
+            <?php
+                if(is_array($result) && $result['result']=="OK") {?>
+                    <p>Grupa taryfowa: <?php echo $result['data'][0]['group']; ?></p>
+                    <p>Opłata roczna: <?php echo $result['data'][0]['price']; ?></p>
+                <?php } else if(is_array($result) && $result['result']!="OK") { ?>
+                    <div class="alert alert-warning">
+                        <strong>Pzykro nam!</strong> Przykro nam, ale nie znaleźliśmy taryfy dla podanego adresu. Sprawdź poprawność wpisanych danych i spróbuj ponownie, bądź skontaktuj się z BOK (linkowanie do kontaktu)
+                    </div>
+                <?php }
+            ?>
         </div>
     </div>
 </form>

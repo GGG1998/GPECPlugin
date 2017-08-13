@@ -14,4 +14,5 @@ jQuery(document).ready(function($){
 
     city.init();
     $("city").on("change",function(){city.init()});
+    $("#start").on("click",function(){ $("#form_start").show(); })
 })

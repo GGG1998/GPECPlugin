@@ -1,0 +1,22 @@
+.faq ul {
+    width: 80%;
+    min-height:30px;
+    border: solid 1px #000;
+    margin-top:10px;
+    font-size:18px;
+    font-weight: bold;
+    padding:10px;
+}
+.faq ul:hover {
+    cursor: pointer;
+}
+
+.faq ul li {
+    display:none;
+    list-style: disc;
+    margin-left:35px;
+    margin-top:5px;
+    font-size:15px;
+    font-weight: normal;
+}
+
