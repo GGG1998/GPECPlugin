@@ -37,6 +37,36 @@ if ( !class_exists( 'gpec_cost_model' ) ) {
             $result=$this->db->get_results($query, OBJECT);
             return empty($result) ? NULL : $result;
         }
+
+        public function setValue($val) {
+            $group_client=$val;
+            $query="SELECT rule_id FROM gpec_rule WHERE value='".$group_client."';";
+            $result=$this->db->get_results($query,OBJECT);
+           
+            $this->rule_fk=$result[0]->{'rule_id'};
+        }
+        public function setSumBruttoYear($val) { $this->sum_brutto_year=$val; }
+        public function setSumVatYear($val) { $this->sum_vat_year=$val; }
+        public function setSumNettoYear($val) { $this->sum_netto_year=$val; }
+        public function setBruttoGj($val) { $this->sum_brutto_gj=$val; }
+        public function setVatGj($val) { $this->sum_vat_gj=$val; }
+        public function setNettoGj($val) { $this->sum_netto_gj=$val; }
+        public function save() {  
+            global $wpdb;
+            $wpdb->show_errors(); 
+            $this->db->insert(
+                'gpec_cost',
+                array(
+                    "rule_fk"=>$this->rule_fk,
+                    "sum_brutto_year"=>$this->sum_brutto_year,
+                    "sum_vat_year"=>$this->sum_vat_year,
+                    "sum_netto_year"=>$this->sum_netto_year,
+                    "sum_brutto_gj"=>$this->sum_brutto_gj,
+                    "sum_vat_gj"=>$this->sum_vat_gj,
+                    "sum_netto_gj"=>$this->sum_netto_gj
+                )
+            );
+        }
     }
 }
 ?>

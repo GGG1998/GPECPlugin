@@ -37,7 +37,7 @@ if ( !class_exists( 'WP_gpec' ) ) {
             $this->gpec_manager_model=new gpec_manager_model(
                 $this->gpec_client_model,
                 $this->gpec_rule_model,
-                $this->gpec_manager_model
+                $this->gpec_cost_model
             );
 
             $this->gpec_controller=new gpec_controller($this->gpec_manager_model);

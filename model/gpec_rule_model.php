@@ -26,6 +26,29 @@ if ( !class_exists( 'gpec_rule_model' ) ) {
             $query='SELECT * FROM gpec_rule WHERE client_fk='.$client_id.'';
             return $this->db->get_results($query, OBJECT);
         }
+
+        public function setValue($val) { $this->value=$val; }
+
+        public function setClientFkByGroupCode($val) {
+            $group_client=$val;
+            $query="SELECT client_id FROM gpec_client WHERE group_client='".$group_client."';";
+            $result=$this->db->get_results($query,OBJECT);
+            $this->client_fk=$result[0]->{'client_id'};
+            
+        }
+
+        public function save() {
+            global $wpdb;
+            $wpdb->show_errors(); 
+            $this->db->insert(
+                'gpec_rule',
+                array(
+                    'value'=>$this->value,
+                    "client_fk"=>$this->client_fk,
+                )
+            );
+
+        }
     }
 }
 ?>

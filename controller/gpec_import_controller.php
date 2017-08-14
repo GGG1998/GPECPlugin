@@ -38,6 +38,8 @@ if(!class_exists('gpec_import_controller')) {
             $this->_validateField($file,"list_costs","listy ceny taryf");
             if(count($this->error)==0) {
                 $this->importClient($file['list_clients']);
+                $this->importRules($file['list_rules']);
+                $this->importCosts($file['list_costs']);
             }else {
                 $error=$this->error;
                 require_once(dirname(__DIR__).'/templates/error.php');
@@ -70,6 +72,54 @@ if(!class_exists('gpec_import_controller')) {
                 }
             }
             fclose($clients);
+        }
+
+        public function importRules($file) {
+            if(empty($file['name'])) return;
+            $required_field=array('value','group_client');
+            $rule=fopen($file['tmp_name'],"r") or die("Nie mogę otworzyć pliku");
+            while (($data = fgetcsv($rule, 0, ";")) !== FALSE) {
+                $num = count($data);
+                $row++;
+                if($row==1) {
+                    if($this->_checkRequairment($required_field,$data,$num)==false)
+                        break;
+                }else {
+
+                    $rule_model=$this->manager->rule;
+                    $rule_model->setValue($data[0]);
+                    $rule_model->setClientFkByGroupCode($data[1]);
+                    $rule_model->save();
+                    echo '<p style="color:green;">Dodałem bazę reguł do bazy</p>';
+                }
+            }
+            fclose($rule);
+        }
+
+        public function importCosts($file) {
+            if(empty($file['name'])) return;
+            $required_field=array('value','sum_brutto_year','sum_vat_year','sum_netto_year','sum_brutto_gj','sum_vat_gj','sum_netto_gj');
+            $costs=fopen($file['tmp_name'],"r") or die("Nie mogę otworzyć pliku");
+            while (($data = fgetcsv($costs, 0, ";")) !== FALSE) {
+                $num = count($data);
+                $row++;
+                if($row==1) {
+                    if($this->_checkRequairment($required_field,$data,$num)==false)
+                        break;
+                }else {
+                    $cost_model=$this->manager->cost;
+                    $cost_model->setValue($data[0]);
+                    $cost_model->setSumBruttoYear($data[1]);
+                    $cost_model->setSumVatYear($data[2]);
+                    $cost_model->setSumNettoYear($data[3]);
+                    $cost_model->setBruttoGj($data[4]);
+                    $cost_model->setVatGj($data[5]);
+                    $cost_model->setNettoGj($data[6]);
+                    $cost_model->save();
+                    echo '<p style="color:green;">Dodałem bazę kosztów do bazy</p>';
+                }
+            }
+            fclose($costs);
         }
 
         private function _check_format($format) {
