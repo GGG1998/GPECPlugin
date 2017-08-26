@@ -38,8 +38,6 @@ if ( !class_exists( 'gpec_rule_model' ) ) {
         }
 
         public function save() {
-            global $wpdb;
-            $wpdb->show_errors(); 
             $this->db->insert(
                 'gpec_rule',
                 array(

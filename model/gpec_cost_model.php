@@ -13,7 +13,6 @@ if ( !class_exists( 'gpec_cost_model' ) ) {
 
         public function __construct() {
             global $wpdb;
-            $wpdb->show_errors();
             $this->db=$wpdb;
             $query="
                 CREATE TABLE IF NOT EXISTS gpec_cost (
@@ -52,8 +51,6 @@ if ( !class_exists( 'gpec_cost_model' ) ) {
         public function setVatGj($val) { $this->sum_vat_gj=$val; }
         public function setNettoGj($val) { $this->sum_netto_gj=$val; }
         public function save() {  
-            global $wpdb;
-            $wpdb->show_errors(); 
             $this->db->insert(
                 'gpec_cost',
                 array(
